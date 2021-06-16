@@ -1,6 +1,12 @@
 package web.dao;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
+import web.config.SecurityConfig;
 import web.model.User;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +39,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     @Transactional
     public void add(User user) {
+        user.setPassword(passwordEncoder().encode(user.getPassword()));
         entityManager.persist(user);
     }
 
@@ -60,6 +67,14 @@ public class UserDaoImpl implements UserDao {
 
     public UserDaoImpl() {
         super();
+    }
+
+//    public static NoOpPasswordEncoder passwordEncoder() {
+//        return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
+//    }
+
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }
 

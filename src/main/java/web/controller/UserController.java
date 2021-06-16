@@ -41,19 +41,14 @@ public class UserController {
     }
 
     @GetMapping("/addNewUser")
-    //public String addingUser(User user) {
-//        return "adduser";
+
     public String adduser(Model model) {
         model.addAttribute("user", new User());
         return "/adduser";
     }
 
     @PostMapping("/adduser")
-//    public String addUser(User user, Model model) {
-//        userService.add(user);
-//        model.addAttribute("users", userService.getAllUsers());
-//        return "admin";
-//    }
+
     public String saveUser(@RequestParam("name") String name,
                            @RequestParam("lastname") String lastname,
                            @RequestParam("email") String email,
@@ -87,17 +82,6 @@ public class UserController {
     }
 
     @PostMapping("/update/{id}")
-//    public String updateUser(@ModelAttribute("user") User user,
-//                             @PathVariable("id") long id,
-//                             @RequestParam(required = false, name = "ADMIN") String ADMIN,
-//                             @RequestParam(required = false, name = "USER") String USER) {
-//        Set<Role> roles = new HashSet<>();
-//        if (ADMIN != null) {
-//            roles.add(new Role(2L, ADMIN));
-//        }
-//        if (USER != null) {
-//            roles.add(new Role(1L, USER));
-//        }
     public String updateUser(@ModelAttribute("user") User user,
                              @PathVariable("id") long id,
                              @RequestParam(required = false, name = "ADMIN") String ADMIN,
@@ -117,13 +101,6 @@ public class UserController {
         userService.update(user);
         return "redirect:/admin";
     }
-
-//    @PostMapping("/update/{id}")
-//    public String updateUser(@PathVariable("id") long id, User user, Model model) {
-//        userService.update(user);
-//        model.addAttribute("users", userService.getAllUsers());
-//        return "admin";
-//    }
 
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable("id") long id, Model model) {
